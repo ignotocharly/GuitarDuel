@@ -1,7 +1,7 @@
 # GuitarDuel
 TFG de Carlos Peña. Grado Multimedia UOC 
 
-<b>Primera versión layaout de Guitar Duel.</b>
+<b>Primera versión layout de Guitar Duel.</b>
   
   Incluye la mecanica principal del juego así como el menú de inicio y preferencias.
   
