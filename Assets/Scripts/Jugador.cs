@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Jugador : MonoBehaviour
 {
 
@@ -18,22 +19,32 @@ public class Jugador : MonoBehaviour
     public Text txtVidaJugador;
     public Text txtVidaPc;
 
+    public Animator anima;
+    public float tocaGuitarra;
+
     // Start is called before the first frame update
     void Start()
     {
         //Se traen las clases necesarias.
         entradaAudioScript = FindObjectOfType<EntradaAudio>();
         motorJuegoScript = FindObjectOfType<MotorJuego>();
-    }
+        anima = GetComponent<Animator>();
+        tocaGuitarra = 0;
 
+    }
+    
     // Update is called once per frame
     void Update()
     {
         //Si la bandera está activa, cuando la magia choca con el collider del jugador, se llama a actualizar la nota.
         if(analizaNota) entradaAudioScript.FrecNota();
         //También es posible usar las teclas.
-        if (Input.GetKeyDown(KeyCode.D) && analizaNota){
-            notaScript[1].ActivaNotaJugador();
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            //notaScript[1].ActivaNotaJugador();
+            anima.SetFloat("PLAY",1f);
+            print("probando");
+            anima.SetFloat("PLAY", 0f);
         }
     }
 
@@ -55,13 +66,11 @@ public class Jugador : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider obj)
-    {
-    
+    {    
         analizaNota = false;  //Desactiba la bandera de análisis de nota.      
         Destroy(obj.gameObject); //Se destruye el objeto.
         RestaVidaJugador(); //Resta vida al jugador.
         StartCoroutine(motorJuegoScript.EncuentraMagiaEnumerator());   //Comprueba si quedan magias en escena.    
-
     }
 
     // Actualiza el valor de la nota.

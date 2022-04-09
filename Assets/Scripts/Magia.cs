@@ -46,7 +46,7 @@ public class Magia : MonoBehaviour
 
         // Se utiliza la librería LeanTween paralanzar la magia hacia el jugador, y cambiar de color,
         // en el tiempo determinado basado en un compas completo sincronizadamente.
-        LeanTween.moveX(gameObject, -3.5f, tiempoLlegada);
+        LeanTween.moveX(gameObject, -2.5f, tiempoLlegada);
     }
 
     private void Update()
