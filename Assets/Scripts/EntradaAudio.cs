@@ -110,7 +110,7 @@ public class EntradaAudio : MonoBehaviour {
 		}
 		return a/256;
 	}
-	/*
+	
 	//función que comprueba si hay aduio en la entrada. Actualmente no se utiliza.
 	public bool MicroSuena()
     {
@@ -123,7 +123,7 @@ public class EntradaAudio : MonoBehaviour {
 		{
 			return false;
 		}
-	}*/
+	}
 
 	// Con esta función se obtiene la frecuencia fundamental de la nota capturada.
 	// Se obtienen una serie de muestras, mediante un analisis de espectro basado en el
@@ -221,5 +221,6 @@ float SacarFrecuenciaFundamental()
 			textoNota.text = "";
 		}
 	}
+
 
 }

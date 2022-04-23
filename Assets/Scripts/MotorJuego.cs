@@ -36,6 +36,9 @@ public class MotorJuego : MonoBehaviour
     float tiempoIntervalo;    
     public bool beat1Check;
 
+    public GameObject[] jugadorPcGO;
+
+    Animator PcAnima;
 
 
     // Metodo que llena la lista de notas aleatorias.
@@ -55,6 +58,7 @@ public class MotorJuego : MonoBehaviour
         {
             // Lanza la nota actual de la lista.
             notas[ListaAleatoria[contador]].ActivaNota();
+            StartCoroutine("TocaGuitarra");
 
             // Si se han lanzado todas las notas correspondientes al array de la lista actual se cambia el turno al jugador.
             if (contador >= nivelActual)
@@ -209,7 +213,7 @@ public class MotorJuego : MonoBehaviour
         jugadorScript.vidaJugador = 100;
         jugadorScript.vidaPc = 100;
 
-        Nivel.text = "Nivel:" + nivelActual;
+        //Nivel.text = "Nivel:" + nivelActual;
 
         
         metronomoScript.MetronomoStart(); // Inicia el metronomo.
@@ -234,8 +238,12 @@ public class MotorJuego : MonoBehaviour
         entradaAudioScript = FindObjectOfType<EntradaAudio>();        
         metronomoScript = FindObjectOfType<Metronomo>();
         jugadorScript = FindObjectOfType<Jugador>();
-    }
 
+        jugadorPcGO = GameObject.FindGameObjectsWithTag("JugadorPc");
+        PcAnima = jugadorPcGO[0].GetComponent<Animator>();
+
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -274,5 +282,14 @@ public class MotorJuego : MonoBehaviour
             ExisteMagia = false;
             CambiarTurno();
         }
+
+    }
+    
+
+    IEnumerator TocaGuitarra()
+    {
+        PcAnima.SetFloat("PLAY", 1f);
+        yield return new WaitForSeconds(0.2f);
+        PcAnima.SetFloat("PLAY", 0f);
     }
 }

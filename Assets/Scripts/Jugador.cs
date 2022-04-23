@@ -9,11 +9,21 @@ public class Jugador : MonoBehaviour
 
     EntradaAudio entradaAudioScript;
     MotorJuego motorJuegoScript;
+
+    MagiaGen magiaGenScript;
+
+    public GameObject VidaJugadorGO;
+    public Scrollbar vidaJugadorBarra;
+
+    public GameObject VidaPcGO;
+    public Scrollbar vidaPcBarra;
+
+
     public Nota[] notaScript;
 
     public bool analizaNota;
    
-    public int vidaJugador;
+    public float vidaJugador;
     public int vidaPc;
 
     public Text txtVidaJugador;
@@ -28,6 +38,14 @@ public class Jugador : MonoBehaviour
         //Se traen las clases necesarias.
         entradaAudioScript = FindObjectOfType<EntradaAudio>();
         motorJuegoScript = FindObjectOfType<MotorJuego>();
+        magiaGenScript = FindObjectOfType<MagiaGen>(); ;
+
+        VidaJugadorGO = GameObject.Find("VidaJugador");
+        vidaJugadorBarra = VidaJugadorGO.GetComponent<Scrollbar>();
+
+        VidaPcGO = GameObject.Find("VidaPC");
+        vidaPcBarra = VidaPcGO.GetComponent<Scrollbar>();
+
         anima = GetComponent<Animator>();
         tocaGuitarra = 0;
 
@@ -42,9 +60,14 @@ public class Jugador : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             //notaScript[1].ActivaNotaJugador();
-            anima.SetFloat("PLAY",1f);
+            StartCoroutine("TocaGuitarra");
             print("probando");
-            anima.SetFloat("PLAY", 0f);
+            
+        }
+        
+        if (entradaAudioScript.MicroSuena())
+        {
+            StartCoroutine("TocaGuitarra");
         }
     }
 
@@ -69,6 +92,7 @@ public class Jugador : MonoBehaviour
     {    
         analizaNota = false;  //Desactiba la bandera de análisis de nota.      
         Destroy(obj.gameObject); //Se destruye el objeto.
+        magiaGenScript.InstanciaMagiaExplosion();
         RestaVidaJugador(); //Resta vida al jugador.
         StartCoroutine(motorJuegoScript.EncuentraMagiaEnumerator());   //Comprueba si quedan magias en escena.    
     }
@@ -83,7 +107,8 @@ public class Jugador : MonoBehaviour
     // Si la vida se acaba el juego termina.
     void RestaVidaJugador()
     {
-        vidaJugador -= 10;
+        vidaJugador -= 10f;
+        vidaJugadorBarra.size -= 0.1f;
         txtVidaJugador.text = vidaJugador.ToString();
         if (vidaJugador <= 0)
         {
@@ -96,10 +121,19 @@ public class Jugador : MonoBehaviour
     void RestaVidaPc()
     {
         vidaPc -= 10;
+        vidaPcBarra.size -= 0.1f;
         txtVidaPc.text = vidaPc.ToString();
         if(vidaPc <= 0)
         {
             motorJuegoScript.GameOver(true);
         }
+    }
+
+
+    IEnumerator TocaGuitarra()
+    {
+        anima.SetFloat("PLAY", 1f);
+        yield return new WaitForSeconds(0.2f);
+        anima.SetFloat("PLAY", 0f);
     }
 }
