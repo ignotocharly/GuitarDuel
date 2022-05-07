@@ -12,7 +12,11 @@ public class Jugador : MonoBehaviour
 
     MagiaGen magiaGenScript;
 
+    public GameObject gameObjectPadre;
     public GameObject VidaJugadorGO;
+
+    public AudioSource sonidoImpacto;
+
     public Scrollbar vidaJugadorBarra;
 
     public GameObject VidaPcGO;
@@ -39,6 +43,8 @@ public class Jugador : MonoBehaviour
         entradaAudioScript = FindObjectOfType<EntradaAudio>();
         motorJuegoScript = FindObjectOfType<MotorJuego>();
         magiaGenScript = FindObjectOfType<MagiaGen>(); ;
+
+        sonidoImpacto = GetComponent<AudioSource>();
 
         VidaJugadorGO = GameObject.Find("VidaJugador");
         vidaJugadorBarra = VidaJugadorGO.GetComponent<Scrollbar>();
@@ -77,6 +83,8 @@ public class Jugador : MonoBehaviour
         //Activa la bandera
         analizaNota = true;
 
+        gameObjectPadre = obj.gameObject.transform.parent.gameObject;
+
         //Se comprieba si la nota tocada por el jugador coincide con la nota actual del PC.
         if (motorJuegoScript.IsNotaOk())
         {
@@ -90,11 +98,16 @@ public class Jugador : MonoBehaviour
 
     private void OnTriggerExit(Collider obj)
     {    
-        analizaNota = false;  //Desactiba la bandera de análisis de nota.      
-        Destroy(obj.gameObject); //Se destruye el objeto.
-        magiaGenScript.InstanciaMagiaExplosion();
+        analizaNota = false;  //Desactiva la bandera de análisis de nota.    
+
+        sonidoImpacto.Play();
+       
+
+        Destroy(gameObjectPadre); //Se destruye el objeto.        
+        
         RestaVidaJugador(); //Resta vida al jugador.
-        StartCoroutine(motorJuegoScript.EncuentraMagiaEnumerator());   //Comprueba si quedan magias en escena.    
+        StartCoroutine(motorJuegoScript.EncuentraMagiaEnumerator());   //Comprueba si quedan magias en escena. 
+        magiaGenScript.InstanciaMagiaExplosion();
     }
 
     // Actualiza el valor de la nota.

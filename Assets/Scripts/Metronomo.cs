@@ -9,6 +9,9 @@ public class Metronomo : MonoBehaviour
     public MotorJuego motorScript;
     public AudioSource clickMetronomo;
 
+    public AudioSource audioIntro;
+    public AudioSource audioLoop;
+
     //Se crean las variables necesarias.
     public int bpm = 100; //Se fija el tempo de la canción. Podría variarse según dificultad.
     public Text txtMetronomo; //Texto en pantalla que muestra los tiempos del compás.
@@ -18,8 +21,10 @@ public class Metronomo : MonoBehaviour
     public float beatTiempo; 
     public float tiempo; 
     public float tiempoCompas;
+    public bool playIntro;
 
-    bool metronomoCuenta;
+
+    public bool metronomoCuenta;
 
 
     // Start is called before the first frame update
@@ -29,12 +34,19 @@ public class Metronomo : MonoBehaviour
         motorScript = FindObjectOfType<MotorJuego>();
         clickMetronomo = this.gameObject.GetComponent<AudioSource>();
 
+        metronomoCuenta = false;
+
+        playIntro = true;       
+
 
         tiempoIntervalo = 60f / bpm; // Se calcula el espacio de tiempo entre notas.
         tiempoCompas = tiempoIntervalo * 4f; // Se calcula la duración de un compás.
         
         // Empieza el juego.
-        motorScript.StartJuego();
+        motorScript.StartJuego();        
+        StartCoroutine(audioLoopPlay());
+        //StartCoroutine(audioIntroPlay());
+
 
     }
 
@@ -42,7 +54,9 @@ public class Metronomo : MonoBehaviour
     void Update()
     {
         // Si se indica se actualiza el metronomo.
-        if(metronomoCuenta) MetronomoCuenta();
+        
+        if (metronomoCuenta) MetronomoCuenta();
+        //MetronomoStart();
         // Actualiza la variable de tiempo.
         tiempo += Time.deltaTime;
     }
@@ -52,25 +66,25 @@ public class Metronomo : MonoBehaviour
     {
 
         beatTiempo += Time.deltaTime;
-
         // beatTiempo = 1
         if (beatTiempo >= tiempoIntervalo)
         //
         {
-
             beatTiempo -= tiempoIntervalo;
             if (beat1 != 4) {
                 beat1++;
                 beat1Check = false;
-                clickMetronomo.Play();
+                //clickMetronomo.Play();
+                if(playIntro) audioIntro.Play();
+                playIntro = false;                
             }
+
             else
             {
                 beat1 = 1;
                 beat1Check = true;
-                clickMetronomo.Play();
+                //clickMetronomo.Play();            
             }
-
             txtMetronomo.text = (beat1).ToString();
         }   
     }
@@ -80,13 +94,28 @@ public class Metronomo : MonoBehaviour
         return beat1Check;
     }
 
-    public void MetronomoStart()
+    public bool MetronomoStart()
     {
-        metronomoCuenta = true;
+        return metronomoCuenta = true;
     }
 
-    public void MetronomoStop()
+    public bool MetronomoStop()
     {
-        metronomoCuenta = false;
+        return metronomoCuenta = false;
     }
+
+
+
+    IEnumerator audioLoopPlay()
+    {
+        yield return new WaitUntil(IsBeat1);
+        audioLoop.Play();
+        //playLoop = false;
+    }
+    /*
+    IEnumerator audioIntroPlay()
+    {
+        yield return new WaitUntil(() => metronomoCuenta == true);
+        audioIntro.Play();
+    }*/
 }

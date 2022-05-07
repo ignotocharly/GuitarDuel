@@ -14,14 +14,18 @@ public class Nota : MonoBehaviour
     
     public MotorJuego motorScript;
     public EntradaAudio entradaAudioScript;
-    public MagiaGen magiaGenScript;
+        public MagiaGen magiaGenScript;
+
+    AudioSource sonidoNota;
 
 
-    private void Start()
+    void Start()
     {
         motorScript = FindObjectOfType< MotorJuego >();
         entradaAudioScript = FindObjectOfType< EntradaAudio >();
         magiaGenScript = FindObjectOfType<MagiaGen>();
+
+        sonidoNota = GetComponent<AudioSource>();
 
         //notaSprite = GetComponent<SpriteRenderer>();
         notaImage = GetComponent<Image>();
@@ -30,10 +34,17 @@ public class Nota : MonoBehaviour
 
     public void ActivaNota()
     {
-        AudioSource.PlayClipAtPoint(sonido, Vector3.zero, 1.0f);
+        //AudioSource.PlayClipAtPoint(sonido, Vector3.zero, 1.0f);
+        sonidoNota.Play();
         notaImage.color = Color.green;
         magiaGenScript.InstanciaMagia();
         Invoke("DesactivaNota", 0.5f);
+    }
+
+    public void DesactivaSonidoNota()
+    {
+        sonidoNota.Stop();
+
     }
 
     public void ActivaNotaJugador()

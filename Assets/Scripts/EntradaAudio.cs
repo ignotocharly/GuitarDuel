@@ -125,11 +125,24 @@ public class EntradaAudio : MonoBehaviour {
 		}
 	}
 
+	public void PuertaRuido()
+	{
+		float volumenMedioActual = CalcularVolumenMedio();
+		if (volumenMedioActual > umbralDeteccion)
+		{
+			audioSource.Play();
+		}
+		else
+		{
+			audioSource.Stop();
+		}
+	}
+
 	// Con esta función se obtiene la frecuencia fundamental de la nota capturada.
 	// Se obtienen una serie de muestras, mediante un analisis de espectro basado en el
 	// algoritmo  de Transformación de Fourier.
 
-float SacarFrecuenciaFundamental()
+	float SacarFrecuenciaFundamental()
 	{
 		
 		float[] data = new float[samples];

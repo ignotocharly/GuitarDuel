@@ -26,9 +26,10 @@ public class MotorJuego : MonoBehaviour
     public GameObject PanelAciertaGO;
 
     // Conexión con los scripts/clases necesarias del juego.
-    public EntradaAudio entradaAudioScript;
-    public Metronomo metronomoScript;
-    public Magia Magiascript;
+    EntradaAudio entradaAudioScript;
+    Metronomo metronomoScript;
+    Magia Magiascript;
+    MagiaGen magiaGenScript;
     Jugador jugadorScript;
 
     // Variables para el metronomo.
@@ -57,7 +58,12 @@ public class MotorJuego : MonoBehaviour
         if (listaLlena && turnoPc)
         {
             // Lanza la nota actual de la lista.
+            if (contador > 0) {
+                notas[ListaAleatoria[contador - 1]].DesactivaSonidoNota();
+            }
+            
             notas[ListaAleatoria[contador]].ActivaNota();
+            
             StartCoroutine("TocaGuitarra");
 
             // Si se han lanzado todas las notas correspondientes al array de la lista actual se cambia el turno al jugador.
@@ -238,6 +244,7 @@ public class MotorJuego : MonoBehaviour
         entradaAudioScript = FindObjectOfType<EntradaAudio>();        
         metronomoScript = FindObjectOfType<Metronomo>();
         jugadorScript = FindObjectOfType<Jugador>();
+        magiaGenScript = FindObjectOfType<MagiaGen>();
 
         jugadorPcGO = GameObject.FindGameObjectsWithTag("JugadorPc");
         PcAnima = jugadorPcGO[0].GetComponent<Animator>();
@@ -249,6 +256,7 @@ public class MotorJuego : MonoBehaviour
     {
         // Se chequea el primer beat del compas.
         beat1Check = metronomoScript.IsBeat1();
+        
     }
 
     // Se resetean los valores para el Turno del PC.
@@ -280,6 +288,7 @@ public class MotorJuego : MonoBehaviour
         {
             print("Esto es = " + GameObject.FindGameObjectsWithTag("Magia").Length);
             ExisteMagia = false;
+            magiaGenScript.DestroyClones();
             CambiarTurno();
         }
 

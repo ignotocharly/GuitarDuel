@@ -9,8 +9,8 @@ public class MagiaGen : MonoBehaviour
 
     public GameObject MagiaExplosion;
     public Transform MagiaExplosionPosJugador;
-    // Start is called before the first frame update
 
+    // Start is called before the first frame update
     Metronomo metronomoScript;
     float tiempoCompas;
 
@@ -55,7 +55,7 @@ public class MagiaGen : MonoBehaviour
     }
     public void DestroyClones()
     {
-        GameObject clonador = GameObject.Find("MagiaGen(Clone)");
+        GameObject clonador = GameObject.Find("MagiaGO(Clone)");
 
         Destroy(clonador);
 
