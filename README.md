@@ -3,11 +3,14 @@ TFG de Carlos Peña. Grado Multimedia UOC
 
 <b>Guitar Duel v1.0</b>
   
-  Incluye la mecanica principal del juego así como el menú de inicio y preferencias.
+  Se añaden personajes, escenografía, efectos visuales y sonoros completando la experiencia de juego.  
   
-  Se ha añadido en el repositorio, directorio raíz, una versión ejecutable del estado actual, comprimida en RAR:
-  https://github.com/ignotocharly/GuitarDuel/blob/main/GuitarDuelBuild.rar
+  IMPORTANTE:  
+  Es necesaria una interfaz de audio para jugar a este videojuego.
+  
+  Puede descargarse el ejecutable de esta primera versión a través del siguiente link.
+  https://drive.google.com/file/d/1-Axwg1thu6NfP_TCIwrez4qMUmoPKDx8/view?usp=sharing
   
   Para entender el funcionamiento también se añade un video explicativo alojado en Youtube.
-  https://youtu.be/bStlWXmUbbQ
+  https://youtu.be/TUmUbI3nRDo
 
