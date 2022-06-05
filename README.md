@@ -1,9 +1,9 @@
 # GuitarDuel
 TFG de Carlos Peña. Grado Multimedia UOC 
 
-<b>Guitar Duel v1.0</b>
+<b>Guitar Duel v1.1</b>
   
-  Se añaden personajes, escenografía, efectos visuales y sonoros completando la experiencia de juego.  
+  Entrega final del primer nivel de Guitar Duel.
   
   IMPORTANTE:  
   Es necesaria una interfaz de audio para jugar a este videojuego.
