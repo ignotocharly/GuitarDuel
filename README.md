@@ -8,6 +8,9 @@ TFG de Carlos Peña. Grado Multimedia UOC
   IMPORTANTE:  
   Es necesaria una interfaz de audio para jugar a este videojuego.
   
+  Trailer del videojuego:
+  https://youtu.be/PZumMdvCmQo
+  
   Puede descargarse el ejecutable de esta primera versión a través del siguiente link.
   https://drive.google.com/file/d/1E-2OhT6P8mE7hQcXOAs0NPyo-RfIbrOI/view?usp=sharing
   
